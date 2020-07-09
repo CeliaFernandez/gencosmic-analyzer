@@ -111,11 +111,15 @@ class gencosmicproducer : public edm::one::EDAnalyzer<edm::one::SharedResources>
 
       Int_t nM; // Number muons
       Float_t Muon_pt[100];
+      Float_t Muon_px[100];
+      Float_t Muon_py[100];
+      Float_t Muon_pz[100];
       Float_t Muon_eta[100];
       Float_t Muon_phi[100];
       Float_t Muon_status[100];
       Float_t Muon_vx[100];
       Float_t Muon_vy[100];
+      Float_t Muon_vz[100];
 
 
 
@@ -192,11 +196,15 @@ void gencosmicproducer::analyze(const edm::Event& iEvent, const edm::EventSetup&
          if ( particle.status() == 1 ) { iM = i; }
 
          Muon_pt[nM] = particle.pt();
+         Muon_px[nM] = particle.px();
+         Muon_py[nM] = particle.py();
+         Muon_pz[nM] = particle.pz();
          Muon_eta[nM] = particle.eta();
          Muon_phi[nM] = particle.phi();
          Muon_status[nM] = particle.status();
          Muon_vx[nM] = particle.vx();
          Muon_vy[nM] = particle.vy();
+         Muon_vz[nM] = particle.vz();
      
          /* 
          std::cout << "Gen muon: " << nM << std::endl;
@@ -219,7 +227,7 @@ void gencosmicproducer::analyze(const edm::Event& iEvent, const edm::EventSetup&
    reco::GenParticleRef mref;
    reco::GenParticle m;
 
-
+   /*
    std::cout << "Status: 1" << std::endl;
    std::cout << "pt, eta, phi: " << muon1.pt() << ", " << muon1.eta() << ", " << muon1.phi() << std::endl;
    std::cout << "vx, vy: " << muon1.vx() << ", " << muon1.vy() << std::endl;
@@ -245,7 +253,7 @@ void gencosmicproducer::analyze(const edm::Event& iEvent, const edm::EventSetup&
       }
 
    }
-
+   */
 
    // Fill the tree
    tree_out->Fill();
@@ -286,9 +294,15 @@ void gencosmicproducer::beginJob()
 
   tree_out->Branch("nM", &nM, "nM/I");
   tree_out->Branch("Muon_pt", Muon_pt, "Muon_pt[nM]/F");
+  tree_out->Branch("Muon_px", Muon_px, "Muon_px[nM]/F");
+  tree_out->Branch("Muon_py", Muon_py, "Muon_py[nM]/F");
+  tree_out->Branch("Muon_pz", Muon_pz, "Muon_pz[nM]/F");
   tree_out->Branch("Muon_eta", Muon_eta, "Muon_eta[nM]/F");
   tree_out->Branch("Muon_phi", Muon_phi, "Muon_phi[nM]/F");
   tree_out->Branch("Muon_status", Muon_status, "Muon_status[nM]/F");
+  tree_out->Branch("Muon_vx", Muon_vx, "Muon_vx[nM]/F");
+  tree_out->Branch("Muon_vy", Muon_vy, "Muon_vy[nM]/F");
+  tree_out->Branch("Muon_vz", Muon_vz, "Muon_vz[nM]/F");
 
 }
 //=======================================================================================================================================================================================================================//
